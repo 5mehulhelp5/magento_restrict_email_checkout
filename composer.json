@@ -1,0 +1,42 @@
+{
+    "name": "marvelic/mve-restrict-checkout",
+    "description": "Magento 2 module for restricting checkout based on email domains, addresses, and customer names",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "Marvelic",
+            "email": "info@marvelic.com"
+        }
+    ],
+    "require": {
+        "php": "~8.1.0||~8.2.0",
+        "magento/framework": "103.0.*",
+        "magento/module-checkout": "100.4.*",
+        "magento/module-customer": "103.0.*",
+        "magento/module-backend": "101.1.*"
+    },
+    "autoload": {
+        "files": [
+            "app/code/Marvelic/MveRestrictCheckout/registration.php"
+        ],
+        "psr-4": {
+            "Marvelic\\MveRestrictCheckout\\": "app/code/Marvelic/MveRestrictCheckout/"
+        }
+    },
+    "keywords": [
+        "magento2",
+        "checkout",
+        "restriction",
+        "email",
+        "domain",
+        "customer"
+    ],
+    "support": {
+        "email": "support@marvelic.com",
+        "issues": "https://github.com/marvelic/mve-restrict-checkout/issues"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

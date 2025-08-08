@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Marvelic. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <default>
+        <mve_restrict_checkout>
+            <general>
+                <enabled>0</enabled>
+                <restrict_guest_checkout>1</restrict_guest_checkout>
+                <restrict_registered_checkout>1</restrict_registered_checkout>
+                <restrict_customer_registration>1</restrict_customer_registration>
+            </general>
+            <restricted_emails>
+                <blocked_domains></blocked_domains>
+                <blocked_emails></blocked_emails>
+                <blocked_first_names></blocked_first_names>
+                <blocked_last_names></blocked_last_names>
+            </restricted_emails>
+            <address_restrictions>
+                <check_delivery_address>1</check_delivery_address>
+                <check_billing_address>1</check_billing_address>
+                <blocked_address_domains></blocked_address_domains>
+                <blocked_address_emails></blocked_address_emails>
+            </address_restrictions>
+            <messages>
+                <guest_checkout_message>Sorry, guest checkout is not allowed for this email address. Please register an account or use a different email address.</guest_checkout_message>
+                <registered_checkout_message>Sorry, checkout is not allowed for this email address. Please contact customer support for assistance.</registered_checkout_message>
+                <registration_message>Sorry, registration is not allowed for this email address. Please contact customer support for assistance.</registration_message>
+            </messages>
+        </mve_restrict_checkout>
+    </default>
+</config>

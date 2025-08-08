@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Marvelic. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mve_restrict_checkout" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Checkout Restriction Settings</label>
+            <tab>sales</tab>
+            <resource>Marvelic_MveRestrictCheckout::config</resource>
+            
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable or disable the checkout restriction module</comment>
+                </field>
+                
+                <field id="restrict_guest_checkout" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Restrict Guest Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Block guest checkout for restricted emails</comment>
+                </field>
+                
+                <field id="restrict_registered_checkout" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Restrict Registered Customer Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Block registered customer checkout for restricted emails</comment>
+                </field>
+                
+                <field id="restrict_customer_registration" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Restrict Customer Registration</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Block customer registration for restricted emails</comment>
+                </field>
+            </group>
+            
+            <group id="restricted_emails" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Restricted Email Settings</label>
+                
+                <field id="blocked_domains" translate="label comment" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Blocked Email Domains</label>
+                    <comment>Enter email domains to block (one per line, e.g., example.com)</comment>
+                </field>
+                
+                <field id="blocked_emails" translate="label comment" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Blocked Email Addresses</label>
+                    <comment>Enter specific email addresses to block (one per line)</comment>
+                </field>
+                
+                <field id="blocked_first_names" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Blocked First Names</label>
+                    <comment>Enter first names to block (one per line, case insensitive)</comment>
+                </field>
+                
+                <field id="blocked_last_names" translate="label comment" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Blocked Last Names</label>
+                    <comment>Enter last names to block (one per line, case insensitive)</comment>
+                </field>
+            </group>
+            
+            <group id="address_restrictions" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Address Restriction Settings</label>
+                
+                <field id="check_delivery_address" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Check Delivery Address</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Apply restrictions to delivery address fields</comment>
+                </field>
+                
+                <field id="check_billing_address" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Check Billing Address</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Apply restrictions to billing address fields</comment>
+                </field>
+                
+                <field id="blocked_address_domains" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Blocked Address Email Domains</label>
+                    <comment>Enter email domains to block in address fields (one per line)</comment>
+                </field>
+                
+                <field id="blocked_address_emails" translate="label comment" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Blocked Address Email Addresses</label>
+                    <comment>Enter specific email addresses to block in address fields (one per line)</comment>
+                </field>
+            </group>
+            
+            <group id="messages" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Error Messages</label>
+                
+                <field id="guest_checkout_message" translate="label comment" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Guest Checkout Error Message</label>
+                    <comment>Error message shown when guest checkout is blocked</comment>
+                </field>
+                
+                <field id="registered_checkout_message" translate="label comment" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Registered Checkout Error Message</label>
+                    <comment>Error message shown when registered customer checkout is blocked</comment>
+                </field>
+                
+                <field id="registration_message" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Registration Error Message</label>
+                    <comment>Error message shown when customer registration is blocked</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
