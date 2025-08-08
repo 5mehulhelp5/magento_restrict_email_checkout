@@ -103,7 +103,7 @@ class GuestPaymentInformationManagementPlugin
 
         // Validate email
         if ($this->emailValidator->isEmailRestricted($email)) {
-            throw new LocalizedException(__($this->config->getGuestCheckoutMessage()));
+            throw new LocalizedException(new Phrase($this->config->getGuestCheckoutMessage()));
         }
 
         // Validate billing address if provided
@@ -122,14 +122,14 @@ class GuestPaymentInformationManagementPlugin
     {
         $email = $billingAddress->getEmail();
         if ($email && $this->emailValidator->isAddressEmailRestricted($email)) {
-            throw new LocalizedException(__('Billing address email is restricted.'));
+            throw new LocalizedException(new Phrase('Billing address email is restricted.'));
         }
 
         $firstName = $billingAddress->getFirstname();
         $lastName = $billingAddress->getLastname();
         
         if ($firstName && $lastName && $this->emailValidator->isNameRestricted($firstName, $lastName)) {
-            throw new LocalizedException(__('Billing address name is restricted.'));
+            throw new LocalizedException(new Phrase('Billing address name is restricted.'));
         }
     }
 }

@@ -10,6 +10,7 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Marvelic\MveRestrictCheckout\Model\EmailValidator;
 use Marvelic\MveRestrictCheckout\Model\Config;
+use Magento\Framework\Phrase;
 
 /**
  * Plugin for customer account management
@@ -96,12 +97,12 @@ class AccountManagementPlugin
 
         // Validate email
         if ($this->emailValidator->isEmailRestricted($customer->getEmail())) {
-            throw new LocalizedException(__($this->config->getRegistrationMessage()));
+            throw new LocalizedException(new Phrase($this->config->getRegistrationMessage()));
         }
 
         // Validate name
         if ($this->emailValidator->isNameRestricted($customer->getFirstname(), $customer->getLastname())) {
-            throw new LocalizedException(__($this->config->getRegistrationMessage()));
+            throw new LocalizedException(new Phrase($this->config->getRegistrationMessage()));
         }
     }
 }

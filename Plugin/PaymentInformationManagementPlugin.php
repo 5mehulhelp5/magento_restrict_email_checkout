@@ -13,6 +13,7 @@ use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Marvelic\MveRestrictCheckout\Model\EmailValidator;
 use Marvelic\MveRestrictCheckout\Model\Config;
+use Magento\Framework\Phrase;
 
 /**
  * Plugin for registered customer payment information management
@@ -123,12 +124,12 @@ class PaymentInformationManagementPlugin
                 
                 // Validate customer email
                 if ($this->emailValidator->isEmailRestricted($customer->getEmail())) {
-                    throw new LocalizedException(__($this->config->getRegisteredCheckoutMessage()));
+                    throw new LocalizedException(new Phrase($this->config->getRegisteredCheckoutMessage()));
                 }
 
                 // Validate customer name
                 if ($this->emailValidator->isNameRestricted($customer->getFirstname(), $customer->getLastname())) {
-                    throw new LocalizedException(__($this->config->getRegisteredCheckoutMessage()));
+                    throw new LocalizedException(new Phrase($this->config->getRegisteredCheckoutMessage()));
                 }
             }
 
@@ -152,14 +153,14 @@ class PaymentInformationManagementPlugin
     {
         $email = $billingAddress->getEmail();
         if ($email && $this->emailValidator->isAddressEmailRestricted($email)) {
-            throw new LocalizedException(__('Billing address email is restricted.'));
+            throw new LocalizedException(new Phrase('Billing address email is restricted.'));
         }
 
         $firstName = $billingAddress->getFirstname();
         $lastName = $billingAddress->getLastname();
         
         if ($firstName && $lastName && $this->emailValidator->isNameRestricted($firstName, $lastName)) {
-            throw new LocalizedException(__('Billing address name is restricted.'));
+            throw new LocalizedException(new Phrase('Billing address name is restricted.'));
         }
     }
 }
