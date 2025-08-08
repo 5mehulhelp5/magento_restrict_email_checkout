@@ -8,7 +8,7 @@
     <system>
         <section id="mve_restrict_checkout" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Checkout Restriction Settings</label>
-            <tab>sales</tab>
+            <tab>marvelic</tab>
             <resource>Marvelic_MveRestrictCheckout::config</resource>
             
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -44,22 +44,22 @@
                 
                 <field id="blocked_domains" translate="label comment" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Blocked Email Domains</label>
-                    <comment>Enter email domains to block (one per line, e.g., example.com)</comment>
+                    <comment>Add email domains to block (one per line). Example: temp-mail.org, 10minutemail.com, guerrillamail.com</comment>
                 </field>
                 
                 <field id="blocked_emails" translate="label comment" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Blocked Email Addresses</label>
-                    <comment>Enter specific email addresses to block (one per line)</comment>
+                    <comment>Add specific email addresses to block (one per line). Example: test@example.com, fake@domain.com, admin@test.com</comment>
                 </field>
                 
                 <field id="blocked_first_names" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Blocked First Names</label>
-                    <comment>Enter first names to block (one per line, case insensitive)</comment>
+                    <label>Blocked First Name Patterns</label>
+                    <comment>Add patterns to block in first names (one per line, case insensitive). Example: test, fake, admin, user</comment>
                 </field>
                 
                 <field id="blocked_last_names" translate="label comment" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Blocked Last Names</label>
-                    <comment>Enter last names to block (one per line, case insensitive)</comment>
+                    <label>Blocked Last Name Patterns</label>
+                    <comment>Add patterns to block in last names (one per line, case insensitive). Example: test, fake, admin, user</comment>
                 </field>
             </group>
             
@@ -104,7 +104,7 @@
                 
                 <field id="registration_message" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Registration Error Message</label>
-                    <comment>Error message shown when customer registration is blocked</comment>
+                    <comment>Customize the error message shown when registration is blocked</comment>
                 </field>
             </group>
         </section>

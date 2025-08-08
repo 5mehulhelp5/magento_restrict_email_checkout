@@ -13,6 +13,7 @@
                         <resource id="Magento_Config::config">
                             <resource id="Marvelic_MveRestrictCheckout::config" title="Checkout Restriction Settings" sortOrder="100"/>
                         </resource>
+                    <resource id="Marvelic_MveRestrictCheckout::marvelic" title="Marvelic" sortOrder="200"/>
                     </resource>
                 </resource>
             </resource>

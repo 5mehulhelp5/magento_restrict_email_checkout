@@ -48,7 +48,7 @@ php bin/magento cache:flush
 
 ### Admin Panel Configuration
 
-Navigate to **Stores > Configuration > Sales > Checkout Restriction Settings**
+Navigate to **Stores > Configuration > Marvelic > Checkout Restriction Settings**
 
 #### General Settings
 - **Enable Module**: Enable/disable the entire module
@@ -79,7 +79,7 @@ Navigate to **Stores > Configuration > Sales > Checkout Restriction Settings**
 
 To block all emails from `spam.com`:
 
-1. Go to **Stores > Configuration > Sales > Checkout Restriction Settings**
+1. Go to **Stores > Configuration > Marvelic > Checkout Restriction Settings**
 2. In **Blocked Email Domains**, enter:
    ```
    spam.com
@@ -112,15 +112,18 @@ To block specific domains in delivery addresses:
 ### Module Structure
 
 ```
-app/code/Marvelic/MveRestrictCheckout/
+Marvelic_MveRestrictCheckout/
 ├── etc/
 │   ├── adminhtml/
 │   │   ├── system.xml
-│   │   └── default.xml
-│   ├── acl.xml
-│   ├── di.xml
+│   │   ├── default.xml
+│   │   ├── menu.xml
+│   │   ├── config.xml
+│   │   ├── acl.xml
+│   │   └── security.xml
 │   ├── frontend/
 │   │   └── di.xml
+│   ├── di.xml
 │   └── module.xml
 ├── Model/
 │   ├── Config.php
@@ -133,10 +136,13 @@ app/code/Marvelic/MveRestrictCheckout/
 │   ├── PaymentInformationManagementPlugin.php
 │   └── AccountManagementPlugin.php
 ├── Setup/
-│   └── Patch/
-│       └── Data/
-│           └── InstallModule.php
-└── registration.php
+│   └── Patch/Data/InstallModule.php
+├── registration.php
+├── composer.json
+├── README.md
+├── INSTALLATION_GUIDE.md
+├── CONFIGURATION_GUIDE.md
+└── LICENSE
 ```
 
 ### Key Classes

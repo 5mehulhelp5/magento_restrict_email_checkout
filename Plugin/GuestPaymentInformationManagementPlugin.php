@@ -11,6 +11,7 @@ use Magento\Quote\Api\Data\PaymentInterface;
 use Magento\Quote\Api\Data\AddressInterface;
 use Marvelic\MveRestrictCheckout\Model\EmailValidator;
 use Marvelic\MveRestrictCheckout\Model\Config;
+use Magento\Framework\Phrase;
 
 /**
  * Plugin for guest payment information management

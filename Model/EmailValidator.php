@@ -37,6 +37,11 @@ class EmailValidator
             return false;
         }
 
+        // Validate email format
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+
         $email = strtolower(trim($email));
         
         // Check specific blocked emails
@@ -70,8 +75,14 @@ class EmailValidator
             return false;
         }
 
-        $firstName = strtolower(trim($firstName));
-        $lastName = strtolower(trim($lastName));
+        // Validate input parameters
+        if (empty($firstName) || empty($lastName)) {
+            return false;
+        }
+
+        // Sanitize input
+        $firstName = strtolower(trim(strip_tags($firstName)));
+        $lastName = strtolower(trim(strip_tags($lastName)));
 
         // Check blocked first names
         $blockedFirstNames = array_map('strtolower', $this->config->getBlockedFirstNames($scopeCode));
@@ -98,6 +109,11 @@ class EmailValidator
     public function isAddressEmailRestricted(string $email, ?string $scopeCode = null): bool
     {
         if (!$this->config->isEnabled($scopeCode)) {
+            return false;
+        }
+
+        // Validate email format
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return false;
         }
 

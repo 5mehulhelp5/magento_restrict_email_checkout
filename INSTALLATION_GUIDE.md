@@ -11,7 +11,7 @@
 
 1. **Copy module files** to your Magento installation:
    ```bash
-   cp -r app/code/Marvelic/ /path/to/your/magento/app/code/
+   cp -r . /path/to/your/magento/app/code/Marvelic/MveRestrictCheckout/
    ```
 
 2. **Run installation commands**:
@@ -25,7 +25,7 @@
    ```
 
 3. **Configure the module**:
-   - Go to **Admin Panel > Stores > Configuration > Sales > Checkout Restriction Settings**
+   - Go to **Admin Panel > Stores > Configuration > Marvelic > Checkout Restriction Settings**
    - Enable the module
    - Configure your restriction rules
    - Save configuration

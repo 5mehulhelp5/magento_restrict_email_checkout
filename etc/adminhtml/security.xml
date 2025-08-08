@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Marvelic. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Security/etc/security.xsd">
+    <security>
+        <rules>
+            <!-- Prevent XSS in configuration values -->
+            <rule id="mve_restrict_checkout_config_validation">
+                <pattern>^[a-zA-Z0-9@._-]+$</pattern>
+                <message>Invalid characters detected in configuration value</message>
+            </rule>
+        </rules>
+    </security>
+</config>

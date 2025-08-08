@@ -19,10 +19,10 @@
     },
     "autoload": {
         "files": [
-            "app/code/Marvelic/MveRestrictCheckout/registration.php"
+            "registration.php"
         ],
         "psr-4": {
-            "Marvelic\\MveRestrictCheckout\\": "app/code/Marvelic/MveRestrictCheckout/"
+            "Marvelic\\MveRestrictCheckout\\": ""
         }
     },
     "keywords": [

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Marvelic. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Marvelic_MveRestrictCheckout::marvelic" title="Marvelic" module="Marvelic_MveRestrictCheckout" sortOrder="100" parent="Magento_Backend::stores" resource="Marvelic_MveRestrictCheckout::marvelic"/>
+        <add id="Marvelic_MveRestrictCheckout::checkout_restriction" title="Checkout Restriction" module="Marvelic_MveRestrictCheckout" sortOrder="10" parent="Marvelic_MveRestrictCheckout::marvelic" action="admin/system_config/edit/section/mve_restrict_checkout" resource="Marvelic_MveRestrictCheckout::config"/>
+    </menu>
+</config>
