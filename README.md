@@ -131,10 +131,9 @@ Marvelic_MveRestrictCheckout/
 │   ├── GuestPaymentInformationManagement.php
 │   ├── PaymentInformationManagement.php
 │   └── AccountManagement.php
-├── Plugin/
-│   ├── GuestPaymentInformationManagementPlugin.php
-│   ├── PaymentInformationManagementPlugin.php
-│   └── AccountManagementPlugin.php
+├── Observer/
+│   ├── CheckoutRestrictionObserver.php
+│   └── CustomerRegistrationObserver.php
 
 ├── registration.php
 ├── composer.json
@@ -152,13 +151,12 @@ Marvelic_MveRestrictCheckout/
 - **PaymentInformationManagement**: Handles registered customer checkout restrictions
 - **AccountManagement**: Handles customer registration restrictions
 
-### Plugin Architecture
+### Observer Architecture
 
-The module uses Magento 2 plugins to intercept checkout and registration processes:
+The module uses Magento 2 observers to intercept checkout and registration processes:
 
-- `GuestPaymentInformationManagementPlugin`: Intercepts guest checkout
-- `PaymentInformationManagementPlugin`: Intercepts registered customer checkout
-- `AccountManagementPlugin`: Intercepts customer registration
+- `CheckoutRestrictionObserver`: Intercepts checkout completion (`checkout_submit_all_after`)
+- `CustomerRegistrationObserver`: Intercepts customer registration (`customer_register_success`)
 
 ## Troubleshooting
 
