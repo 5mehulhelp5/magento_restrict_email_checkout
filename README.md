@@ -135,8 +135,7 @@ Marvelic_MveRestrictCheckout/
 │   ├── GuestPaymentInformationManagementPlugin.php
 │   ├── PaymentInformationManagementPlugin.php
 │   └── AccountManagementPlugin.php
-├── Setup/
-│   └── Patch/Data/InstallModule.php
+
 ├── registration.php
 ├── composer.json
 ├── README.md
