@@ -93,17 +93,29 @@ class GuestPaymentInformationManagementPlugin
      */
     private function validateGuestCheckout(string $email, ?AddressInterface $billingAddress): void
     {
+        // Debug logging
+        error_log("Marvelic: validateGuestCheckout called with email: " . $email);
+        error_log("Marvelic: Module enabled: " . ($this->config->isEnabled() ? 'true' : 'false'));
+        error_log("Marvelic: Guest checkout restricted: " . ($this->config->isGuestCheckoutRestricted() ? 'true' : 'false'));
+        
         if (!$this->config->isEnabled()) {
+            error_log("Marvelic: Module is disabled, skipping validation");
             return;
         }
 
         if (!$this->config->isGuestCheckoutRestricted()) {
+            error_log("Marvelic: Guest checkout restriction is disabled, skipping validation");
             return;
         }
 
         // Validate email
-        if ($this->emailValidator->isEmailRestricted($email)) {
-            throw new LocalizedException(new Phrase($this->config->getGuestCheckoutMessage()));
+        $isEmailRestricted = $this->emailValidator->isEmailRestricted($email);
+        error_log("Marvelic: Email restricted: " . ($isEmailRestricted ? 'true' : 'false'));
+        
+        if ($isEmailRestricted) {
+            $message = $this->config->getGuestCheckoutMessage();
+            error_log("Marvelic: Throwing exception with message: " . $message);
+            throw new LocalizedException(new Phrase($message));
         }
 
         // Validate billing address if provided

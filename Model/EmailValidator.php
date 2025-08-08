@@ -33,31 +33,43 @@ class EmailValidator
      */
     public function isEmailRestricted(string $email, ?string $scopeCode = null): bool
     {
+        error_log("Marvelic: isEmailRestricted called with email: " . $email);
+        
         if (!$this->config->isEnabled($scopeCode)) {
+            error_log("Marvelic: Module is disabled in isEmailRestricted");
             return false;
         }
 
         // Validate email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            error_log("Marvelic: Invalid email format: " . $email);
             return false;
         }
 
         $email = strtolower(trim($email));
+        error_log("Marvelic: Normalized email: " . $email);
         
         // Check specific blocked emails
         $blockedEmails = $this->config->getBlockedEmails($scopeCode);
+        error_log("Marvelic: Blocked emails: " . implode(', ', $blockedEmails));
+        
         if (in_array($email, $blockedEmails)) {
+            error_log("Marvelic: Email found in blocked emails list");
             return true;
         }
 
         // Check blocked domains
         $blockedDomains = $this->config->getBlockedDomains($scopeCode);
         $emailDomain = $this->extractDomain($email);
+        error_log("Marvelic: Email domain: " . $emailDomain);
+        error_log("Marvelic: Blocked domains: " . implode(', ', $blockedDomains));
         
         if (in_array($emailDomain, $blockedDomains)) {
+            error_log("Marvelic: Domain found in blocked domains list");
             return true;
         }
 
+        error_log("Marvelic: Email is not restricted");
         return false;
     }
 
