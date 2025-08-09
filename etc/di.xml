@@ -5,7 +5,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Magento\Checkout\Model\GuestPaymentInformationManagement" type="Marvelic\MveRestrictCheckout\Model\GuestPaymentInformationManagement" />
+    <type name="Magento\Checkout\Model\GuestPaymentInformationManagement">
+        <plugin name="marvelic_guest_checkout_restriction" type="Marvelic\MveRestrictCheckout\Plugin\GuestPaymentInformationManagementPlugin" sortOrder="10"/>
+    </type>
     
     <type name="Magento\Checkout\Model\PaymentInformationManagement">
         <plugin name="marvelic_registered_checkout_restriction" type="Marvelic\MveRestrictCheckout\Plugin\PaymentInformationManagementPlugin" sortOrder="10"/>
