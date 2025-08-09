@@ -6,8 +6,14 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Magento\Checkout\Model\GuestPaymentInformationManagement" type="Marvelic\MveRestrictCheckout\Model\GuestPaymentInformationManagement" />
-    <preference for="Magento\Checkout\Model\PaymentInformationManagement" type="Marvelic\MveRestrictCheckout\Model\PaymentInformationManagement" />
-    <preference for="Magento\Customer\Model\AccountManagement" type="Marvelic\MveRestrictCheckout\Model\AccountManagement" />
+    
+    <type name="Magento\Checkout\Model\PaymentInformationManagement">
+        <plugin name="marvelic_registered_checkout_restriction" type="Marvelic\MveRestrictCheckout\Plugin\PaymentInformationManagementPlugin" sortOrder="10"/>
+    </type>
+    
+    <type name="Magento\Customer\Model\AccountManagement">
+        <plugin name="marvelic_customer_registration_restriction" type="Marvelic\MveRestrictCheckout\Plugin\AccountManagementPlugin" sortOrder="10"/>
+    </type>
     
     <virtualType name="Marvelic\MveRestrictCheckout\Model\Config\Source\AddressType">
         <arguments>

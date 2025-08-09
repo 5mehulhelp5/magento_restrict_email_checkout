@@ -121,21 +121,15 @@ Marvelic_MveRestrictCheckout/
 │   │   ├── config.xml
 │   │   ├── acl.xml
 │   │   └── security.xml
-│   ├── frontend/
-│   │   └── di.xml
 │   ├── di.xml
 │   └── module.xml
 ├── Model/
 │   ├── Config.php
 │   ├── EmailValidator.php
-│   ├── GuestPaymentInformationManagement.php
-│   ├── PaymentInformationManagement.php
-│   └── AccountManagement.php
-├── Model/
-│   ├── Config.php
-│   ├── EmailValidator.php
 │   └── GuestPaymentInformationManagement.php
-
+├── Plugin/
+│   ├── AccountManagementPlugin.php
+│   └── PaymentInformationManagementPlugin.php
 ├── registration.php
 ├── composer.json
 ├── README.md
@@ -149,14 +143,15 @@ Marvelic_MveRestrictCheckout/
 - **Config**: Manages all module configuration settings
 - **EmailValidator**: Validates emails, domains, and names against restrictions
 - **GuestPaymentInformationManagement**: Handles guest checkout restrictions
-- **PaymentInformationManagement**: Handles registered customer checkout restrictions
-- **AccountManagement**: Handles customer registration restrictions
+- **AccountManagementPlugin**: Handles customer registration restrictions
+- **PaymentInformationManagementPlugin**: Handles registered customer checkout restrictions
 
-### Preference Architecture
+### Architecture
 
-The module uses Magento 2 preferences to override core checkout functionality:
+The module uses a combination of preferences and plugins:
 
-- `GuestPaymentInformationManagement`: Overrides guest checkout with email validation
+- **Preferences**: `GuestPaymentInformationManagement` - Overrides guest checkout with email validation
+- **Plugins**: `AccountManagementPlugin` and `PaymentInformationManagementPlugin` - Intercept customer registration and registered checkout
 
 ## Troubleshooting
 
