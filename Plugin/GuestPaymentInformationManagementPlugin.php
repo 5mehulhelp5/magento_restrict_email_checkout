@@ -7,10 +7,11 @@ namespace Marvelic\MveRestrictCheckout\Plugin;
 
 use Magento\Checkout\Model\GuestPaymentInformationManagement;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Quote\Api\Data\PaymentInterface;
 use Magento\Quote\Api\Data\AddressInterface;
 use Magento\Framework\Phrase;
+use Magento\Framework\Message\ManagerInterface;
+use Psr\Log\LoggerInterface;
 use Marvelic\MveRestrictCheckout\Model\EmailValidator;
 use Marvelic\MveRestrictCheckout\Model\Config;
 
@@ -30,15 +31,31 @@ class GuestPaymentInformationManagementPlugin
     private $config;
 
     /**
+     * @var ManagerInterface
+     */
+    private $messageManager;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @param EmailValidator $emailValidator
      * @param Config $config
+     * @param ManagerInterface $messageManager
+     * @param LoggerInterface $logger
      */
     public function __construct(
         EmailValidator $emailValidator,
-        Config $config
+        Config $config,
+        ManagerInterface $messageManager,
+        LoggerInterface $logger
     ) {
         $this->emailValidator = $emailValidator;
         $this->config = $config;
+        $this->messageManager = $messageManager;
+        $this->logger = $logger;
     }
 
     /**
@@ -59,7 +76,19 @@ class GuestPaymentInformationManagementPlugin
         PaymentInterface $paymentMethod,
         AddressInterface $billingAddress = null
     ) {
-        $this->validateGuestCheckout($email, $billingAddress);
+        try {
+            $this->validateGuestCheckout($email, $billingAddress);
+        } catch (LocalizedException $e) {
+            // Log the exception first (best practice from Adobe Commerce)
+            $this->logger->critical($e);
+            
+            // Add message to session for frontend display
+            $this->messageManager->addErrorMessage($e->getMessage());
+            
+            // Re-throw the original exception
+            throw $e;
+        }
+        
         return [$cartId, $email, $paymentMethod, $billingAddress];
     }
 
@@ -89,10 +118,8 @@ class GuestPaymentInformationManagementPlugin
                 $message = 'Sorry, guest checkout is not allowed for this email address. Please register an account or use a different email address.';
             }
             
-            // Use a more specific exception type
-            throw new CouldNotSaveException(
-                new Phrase($message)
-            );
+            // Throw LocalizedException with the custom message
+            throw new LocalizedException(new Phrase($message));
         }
 
         // Validate billing address if provided

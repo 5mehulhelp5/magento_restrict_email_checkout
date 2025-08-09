@@ -10,6 +10,8 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Quote\Api\Data\PaymentInterface;
 use Magento\Quote\Api\Data\AddressInterface;
 use Magento\Framework\Phrase;
+use Magento\Framework\Message\ManagerInterface;
+use Psr\Log\LoggerInterface;
 use Marvelic\MveRestrictCheckout\Model\EmailValidator;
 use Marvelic\MveRestrictCheckout\Model\Config;
 use Magento\Quote\Api\CartRepositoryInterface;
@@ -35,18 +37,34 @@ class PaymentInformationManagementPlugin
     private $cartRepository;
 
     /**
+     * @var ManagerInterface
+     */
+    private $messageManager;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @param EmailValidator $emailValidator
      * @param Config $config
      * @param CartRepositoryInterface $cartRepository
+     * @param ManagerInterface $messageManager
+     * @param LoggerInterface $logger
      */
     public function __construct(
         EmailValidator $emailValidator,
         Config $config,
-        CartRepositoryInterface $cartRepository
+        CartRepositoryInterface $cartRepository,
+        ManagerInterface $messageManager,
+        LoggerInterface $logger
     ) {
         $this->emailValidator = $emailValidator;
         $this->config = $config;
         $this->cartRepository = $cartRepository;
+        $this->messageManager = $messageManager;
+        $this->logger = $logger;
     }
 
     /**
@@ -65,7 +83,19 @@ class PaymentInformationManagementPlugin
         PaymentInterface $paymentMethod,
         AddressInterface $billingAddress = null
     ) {
-        $this->validateRegisteredCheckout($cartId, $billingAddress);
+        try {
+            $this->validateRegisteredCheckout($cartId, $billingAddress);
+        } catch (LocalizedException $e) {
+            // Log the exception first (best practice from Adobe Commerce)
+            $this->logger->critical($e);
+            
+            // Add message to session for frontend display
+            $this->messageManager->addErrorMessage($e->getMessage());
+            
+            // Re-throw the original exception
+            throw $e;
+        }
+        
         return [$cartId, $paymentMethod, $billingAddress];
     }
 
