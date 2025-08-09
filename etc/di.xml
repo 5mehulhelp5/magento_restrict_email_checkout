@@ -5,6 +5,10 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Checkout\Model\GuestPaymentInformationManagement" type="Marvelic\MveRestrictCheckout\Model\GuestPaymentInformationManagement" />
+    <preference for="Magento\Checkout\Model\PaymentInformationManagement" type="Marvelic\MveRestrictCheckout\Model\PaymentInformationManagement" />
+    <preference for="Magento\Customer\Model\AccountManagement" type="Marvelic\MveRestrictCheckout\Model\AccountManagement" />
+    
     <virtualType name="Marvelic\MveRestrictCheckout\Model\Config\Source\AddressType">
         <arguments>
             <argument name="data" xsi:type="array">
