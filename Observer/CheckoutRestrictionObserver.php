@@ -95,7 +95,14 @@ class CheckoutRestrictionObserver implements ObserverInterface
             
         } catch (\Exception $e) {
             if ($this->config->isLoggingEnabled()) {
-                $this->logger->critical("MveRestrictCheckout Order Blocked: " . $e->getMessage());
+                $this->logger->critical("MveRestrictCheckout Order Blocked: " . $e->getMessage(), [
+                    'email' => $email ?? 'unknown',
+                    'firstName' => $firstName ?? 'unknown',
+                    'lastName' => $lastName ?? 'unknown',
+                    'isGuest' => $isGuest ?? 'unknown',
+                    'orderId' => $order->getIncrementId() ?? 'unknown',
+                    'customerId' => $order->getCustomerId() ?? 'guest'
+                ]);
             }
             
             // Add error message to session

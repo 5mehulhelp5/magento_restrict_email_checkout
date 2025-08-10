@@ -18,6 +18,8 @@ The MveRestrictCheckout module now includes a custom logger that writes to `var/
 - Logging is controlled only by the module's "Enable Logging" configuration setting
 - Uses Magento's standard dependency injection system with PSR LoggerInterface
 - **Clean, focused logging**: Only logs meaningful business actions (restrictions, errors) - no verbose debug information
+- **Module-specific filtering**: Only logs messages starting with "MveRestrictCheckout" - filters out Magento's general debug/info logs
+- **Enhanced context**: Critical logs include specific details (email, name, order/quote ID, customer ID) for easy tracking
 
 ## How to Test
 
@@ -67,9 +69,11 @@ Each log entry follows this format:
 
 Example:
 ```
-[2024-01-15 14:30:25] [CRITICAL] MveRestrictCheckout Order Blocked: Guest checkout is not allowed for this email address. Please register an account or use a different email address.
-[2024-01-15 14:30:25] [CRITICAL] MveRestrictCheckout Cart Restriction Error: Adding products to cart is not allowed for this email address. Please register an account or use a different email address.
-[2024-01-15 14:30:25] [CRITICAL] MveRestrictCheckout Customer Registration Blocked: Customer registration is not allowed for this email address. Please use a different email address.
+[2024-01-15 14:30:25] [CRITICAL] MveRestrictCheckout Order Blocked: Guest checkout is not allowed for this email address. Please register an account or use a different email address. Context: {"email":"test@temp-mail.org","firstName":"John","lastName":"Doe","isGuest":true,"orderId":"000000123","customerId":"guest"}
+
+[2024-01-15 14:30:25] [CRITICAL] MveRestrictCheckout Cart Restriction Error: Adding products to cart is not allowed for this email address. Please register an account or use a different email address. Context: {"email":"blocked@example.com","isGuest":true,"quoteId":"12345","customerId":"guest"}
+
+[2024-01-15 14:30:25] [CRITICAL] MveRestrictCheckout Customer Registration Blocked: Email address is restricted Context: {"email":"restricted@domain.com","firstName":"Test","lastName":"User","action":"registration_prevented","reason":"restricted_email"}
 ```
 
 ## Configuration
@@ -86,6 +90,12 @@ When logging is enabled, the module logs:
 - **Business Actions**: When restrictions are enforced (checkout blocked, cart blocked, registration blocked)
 - **Error Conditions**: Critical errors and exceptions that prevent normal operation
 - **No Verbose Logging**: Debug information, successful validations, and test messages are not logged
+
+## Important Notes
+
+- **Customer Registration**: Uses plugin on `Magento\Customer\Model\Customer::save()` to prevent customer creation BEFORE database save
+- **Checkout Restrictions**: Uses `sales_order_place_before` event to prevent order creation
+- **Cart Restrictions**: Uses `checkout_cart_product_add_after` event to prevent products from being added to cart
 
 ## Troubleshooting
 

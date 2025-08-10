@@ -103,7 +103,12 @@ class CartRestrictionObserver implements ObserverInterface
 
         } catch (\Exception $e) {
             if ($this->config->isLoggingEnabled()) {
-                $this->logger->critical("MveRestrictCheckout Cart Restriction Error: " . $e->getMessage());
+                $this->logger->critical("MveRestrictCheckout Cart Restriction Error: " . $e->getMessage(), [
+                    'email' => $email ?? 'unknown',
+                    'isGuest' => $isGuest ?? 'unknown',
+                    'quoteId' => $quote->getId() ?? 'unknown',
+                    'customerId' => $quote->getCustomerId() ?? 'guest'
+                ]);
             }
             throw $e;
         }

@@ -91,6 +91,11 @@ class Logger implements \Psr\Log\LoggerInterface
      */
     private function writeLog(string $level, string $message, array $context = []): void
     {
+        // Only log messages that are specifically from our module
+        if (!str_starts_with($message, 'MveRestrictCheckout')) {
+            return;
+        }
+        
         try {
             $this->ensureLogDirectoryExists();
             

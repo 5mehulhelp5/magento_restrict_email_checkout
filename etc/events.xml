@@ -10,15 +10,16 @@
         <observer name="marvelic_checkout_restriction" instance="Marvelic\MveRestrictCheckout\Observer\CheckoutRestrictionObserver"/>
     </event>
     
-    <!-- Block cart additions for restricted emails -->
+        <!-- Block cart additions for restricted emails -->
     <event name="checkout_cart_product_add_after">
         <observer name="marvelic_cart_restriction" instance="Marvelic\MveRestrictCheckout\Observer\CartRestrictionObserver"/>
     </event>
     
     <!-- Block customer registration for restricted emails/names -->
-    <event name="customer_register_success">
+    <event name="customer_save_before">
         <observer name="marvelic_customer_registration_restriction" instance="Marvelic\MveRestrictCheckout\Observer\CustomerRegistrationObserver"/>
     </event>
+    
     
 
 </config>
