@@ -1,4 +1,4 @@
-# This Module UNDER DEVELOPMENT. not ready for Production site. 
+# This Module is my test to used Cursor AI generated as my requirement
 # Marvelic MveRestrictCheckout Module
 
 A Magento 2.4.6-p11 module that provides comprehensive checkout restriction capabilities based on email domains, addresses, and customer names.
