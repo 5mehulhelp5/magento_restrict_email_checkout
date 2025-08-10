@@ -20,6 +20,15 @@
         <observer name="marvelic_customer_registration_restriction" instance="Marvelic\MveRestrictCheckout\Observer\CustomerRegistrationObserver"/>
     </event>
     
+    <!-- Block API cart creation for restricted emails/names -->
+    <event name="checkout_cart_save_before">
+        <observer name="marvelic_api_cart_restriction" instance="Marvelic\MveRestrictCheckout\Observer\ApiCartRestrictionObserver"/>
+    </event>
     
+    <!-- Block API order placement for restricted emails/names -->
+    <event name="checkout_submit_all_after">
+        <observer name="marvelic_api_order_restriction" instance="Marvelic\MveRestrictCheckout\Observer\ApiOrderRestrictionObserver"/>
+    </event>
+       
 
 </config>

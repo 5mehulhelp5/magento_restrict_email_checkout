@@ -8,6 +8,7 @@ A Magento 2.4.6-p11 module that provides comprehensive checkout restriction capa
 ✅ **Customer Registration Protection** - Block customer registration for restricted emails and names  
 ✅ **Guest Checkout Protection** - Block guest checkout for restricted emails and names  
 ✅ **Registered Customer Checkout Protection** - Block registered customer checkout for restricted data  
+✅ **API Protection** - Block cart creation and order placement via REST/SOAP/GraphQL APIs  
 ✅ **Admin Configuration** - Full admin panel configuration for all restriction settings  
 ✅ **Flexible Blocking Rules** - Block by domain, specific email, first name, or last name  
 ✅ **Configurable Logging** - Enable/disable logging to var/log/mve_restrict_checkout.log  
@@ -121,7 +122,13 @@ Marvelic_MveRestrictCheckout/
 ├── Observer/
 │   ├── CheckoutRestrictionObserver.php
 │   ├── CartRestrictionObserver.php
-│   └── CustomerRegistrationObserver.php
+│   ├── CustomerRegistrationObserver.php
+│   ├── ApiCartRestrictionObserver.php
+│   └── ApiOrderRestrictionObserver.php
+├── Model/
+│   ├── Config.php
+│   ├── EmailValidator.php
+│   └── ApiExceptionHandler.php
 ├── README.md
 ├── INSTALLATION_GUIDE.md
 ├── CONFIGURATION_GUIDE.md
@@ -132,17 +139,30 @@ Marvelic_MveRestrictCheckout/
 
 - **Config**: Manages all module configuration settings
 - **EmailValidator**: Validates emails, domains, and names against restrictions
+- **ApiExceptionHandler**: Converts exceptions to proper HTTP responses for API requests
+
+#### Frontend Observers
 - **CheckoutRestrictionObserver**: Handles checkout restrictions for both guest and registered customers
 - **CartRestrictionObserver**: Handles restrictions when products are added to cart
 - **CustomerRegistrationObserver**: Handles customer registration restrictions
+
+#### API Observers
+- **ApiCartRestrictionObserver**: Blocks API cart creation for restricted data
+- **ApiOrderRestrictionObserver**: Blocks API order placement for restricted data
 
 ### Observer Architecture
 
 The module uses Magento 2 observers for all functionality:
 
+#### Frontend Protection (Existing)
 - **CheckoutRestrictionObserver**: Intercepts order placement with email and name validation
 - **CartRestrictionObserver**: Intercepts cart operations with email validation
 - **CustomerRegistrationObserver**: Intercepts customer registration with email and name validation
+
+#### API Protection (New)
+- **ApiCartRestrictionObserver**: Blocks API cart creation for restricted data
+- **ApiOrderRestrictionObserver**: Blocks API order placement for restricted data
+- **ApiExceptionHandler**: Converts exceptions to proper HTTP 403 responses for API requests
 
 ## Troubleshooting
 
@@ -175,6 +195,13 @@ For support and questions:
 This module is licensed under the Open Software License v. 3.0 (OSL-3.0).
 
 ## Changelog
+
+### Version 1.1.0
+- **API Protection**: Added comprehensive protection for REST/SOAP/GraphQL APIs
+- **Cart Creation Blocking**: Blocks API cart creation for restricted emails/names
+- **Order Placement Blocking**: Blocks API order placement for restricted data
+- **HTTP 403 Responses**: Proper HTTP status codes for API violations
+- **Enhanced Logging**: Separate logging for API vs frontend attempts
 
 ### Version 1.0.0
 - Initial release
