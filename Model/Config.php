@@ -84,8 +84,7 @@ class Config
             $scopeCode
         );
         
-        // Debug logging
-        $this->logger->debug("MveRestrictCheckout Config Debug - isEnabled: " . var_export($value, true));
+
         
         return $value === '1' || $value === 1 || $value === true;
     }

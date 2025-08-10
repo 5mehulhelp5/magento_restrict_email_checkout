@@ -68,17 +68,11 @@ class CheckoutRestrictionObserver implements ObserverInterface
     {
         try {
             if (!$this->config->isEnabled()) {
-                if ($this->config->isLoggingEnabled()) {
-                    $this->logger->debug("MveRestrictCheckout: Module disabled, allowing order");
-                }
                 return;
             }
 
             $order = $observer->getEvent()->getOrder();
             if (!$order) {
-                if ($this->config->isLoggingEnabled()) {
-                    $this->logger->debug("MveRestrictCheckout: No order found, allowing order");
-                }
                 return;
             }
 
@@ -86,10 +80,6 @@ class CheckoutRestrictionObserver implements ObserverInterface
             $isGuest = $order->getCustomerId() === null;
             $firstName = $order->getCustomerFirstname();
             $lastName = $order->getCustomerLastname();
-            
-            if ($this->config->isLoggingEnabled()) {
-                $this->logger->debug("MveRestrictCheckout: Validating order - Email: {$email}, Guest: " . ($isGuest ? 'Yes' : 'No'));
-            }
 
             // Check guest checkout restrictions
             if ($isGuest && $this->config->isGuestCheckoutRestricted()) {
@@ -101,9 +91,7 @@ class CheckoutRestrictionObserver implements ObserverInterface
                 $this->validateRegisteredCheckout($email, $firstName, $lastName);
             }
 
-            if ($this->config->isLoggingEnabled()) {
-                $this->logger->debug("MveRestrictCheckout: Order validation passed");
-            }
+
             
         } catch (\Exception $e) {
             if ($this->config->isLoggingEnabled()) {

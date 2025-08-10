@@ -59,27 +59,17 @@ class CustomerRegistrationObserver implements ObserverInterface
     {
         try {
             if (!$this->config->isEnabled() || !$this->config->isCustomerRegistrationRestricted()) {
-                if ($this->config->isLoggingEnabled()) {
-                    $this->logger->debug("MveRestrictCheckout: Customer registration restriction disabled, allowing registration");
-                }
                 return;
             }
 
             $customer = $observer->getEvent()->getCustomer();
             if (!$customer) {
-                if ($this->config->isLoggingEnabled()) {
-                    $this->logger->debug("MveRestrictCheckout: No customer found, allowing registration");
-                }
                 return;
             }
 
             $email = $customer->getEmail();
             $firstName = $customer->getFirstname();
             $lastName = $customer->getLastname();
-
-            if ($this->config->isLoggingEnabled()) {
-                $this->logger->debug("MveRestrictCheckout: Validating customer registration - Email: {$email}, Name: {$firstName} {$lastName}");
-            }
 
             // Check email restrictions
             if ($this->emailValidator->isEmailRestricted($email)) {
@@ -99,9 +89,7 @@ class CustomerRegistrationObserver implements ObserverInterface
                 throw new LocalizedException(new Phrase($message));
             }
 
-            if ($this->config->isLoggingEnabled()) {
-                $this->logger->debug("MveRestrictCheckout: Customer registration validation passed");
-            }
+
 
         } catch (\Exception $e) {
             if ($this->config->isLoggingEnabled()) {
