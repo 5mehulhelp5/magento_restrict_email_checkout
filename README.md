@@ -1,3 +1,4 @@
+# This Module UNDER DEVELOPMENT. not ready for Production site. 
 # Marvelic MveRestrictCheckout Module
 
 A Magento 2.4.6-p11 module that provides comprehensive checkout restriction capabilities based on email domains, addresses, and customer names.
@@ -160,21 +161,7 @@ The module uses Magento 2 observers for all functionality:
    - Check that specific restriction types are enabled
    - Ensure blocked data is properly formatted (one per line)
 
-### Debug Mode
 
-Enable debug logging by adding to `app/etc/env.php`:
-
-```php
-'system' => [
-    'default' => [
-        'dev' => [
-            'debug' => [
-                'debug_logging' => 1
-            ]
-        ]
-    ]
-]
-```
 
 ## Support
 
