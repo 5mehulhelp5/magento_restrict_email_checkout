@@ -53,6 +53,11 @@ app/code/Marvelic/MveRestrictCheckout/
 │   ├── CheckoutRestrictionObserver.php
 │   ├── CartRestrictionObserver.php
 │   └── CustomerRegistrationObserver.php
+├── Plugin/
+│   └── Api/
+│       ├── GuestCheckoutApiPlugin.php
+│       ├── RegisteredCheckoutApiPlugin.php
+│       └── CustomerRegistrationApiPlugin.php
 ├── README.md
 ├── INSTALLATION_GUIDE.md
 ├── CONFIGURATION_GUIDE.md

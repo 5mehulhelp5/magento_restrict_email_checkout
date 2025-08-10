@@ -7,9 +7,11 @@ A Magento 2.4.6-p11 module that provides comprehensive checkout restriction capa
 ✅ **Customer Registration Protection** - Block customer registration for restricted emails and names  
 ✅ **Guest Checkout Protection** - Block guest checkout for restricted emails and names  
 ✅ **Registered Customer Checkout Protection** - Block registered customer checkout for restricted data  
-✅ **Admin Configuration** - Full admin panel configuration for all restriction settings  
-✅ **Flexible Blocking Rules** - Block by domain, specific email, first name, or last name  
-✅ **Configurable Logging** - Enable/disable logging to var/log/mve_restrict_checkout.log  
+✅ **API Protection**: Restrict order creation and customer registration via Magento REST API calls
+- **Admin Configuration**: Comprehensive admin panel interface to configure all restriction settings
+- **Configurable Logging**: Enable/disable logging to var/log/mve_restrict_checkout.log
+- **Custom Error Messages**: Configurable error messages for each restriction type
+- **Internal Validation Messages**: Configurable internal validation messages for email and name restrictions
 
 ## Requirements
 
@@ -121,6 +123,11 @@ Marvelic_MveRestrictCheckout/
 │   ├── CheckoutRestrictionObserver.php
 │   ├── CartRestrictionObserver.php
 │   └── CustomerRegistrationObserver.php
+├── Plugin/
+│   └── Api/
+│       ├── GuestCheckoutApiPlugin.php
+│       ├── RegisteredCheckoutApiPlugin.php
+│       └── CustomerRegistrationApiPlugin.php
 ├── README.md
 ├── INSTALLATION_GUIDE.md
 ├── CONFIGURATION_GUIDE.md
@@ -129,19 +136,30 @@ Marvelic_MveRestrictCheckout/
 
 ### Key Classes
 
-- **Config**: Manages all module configuration settings
-- **EmailValidator**: Validates emails, domains, and names against restrictions
-- **CheckoutRestrictionObserver**: Handles checkout restrictions for both guest and registered customers
-- **CartRestrictionObserver**: Handles restrictions when products are added to cart
-- **CustomerRegistrationObserver**: Handles customer registration restrictions
+- **`Config`**: Manages module configuration and provides methods to retrieve settings
+- **`EmailValidator`**: Core validation logic for emails and names against blocked lists
+- **`CheckoutRestrictionObserver`**: Handles checkout restrictions for both guest and registered customers
+- **`CartRestrictionObserver`**: Handles restrictions when products are added to the cart
+- **`CustomerRegistrationObserver`**: Handles customer registration restrictions
+- **`GuestCheckoutApiPlugin`**: API protection for guest checkout via REST API
+- **`RegisteredCheckoutApiPlugin`**: API protection for registered customer checkout via REST API
+- **`CustomerRegistrationApiPlugin`**: API protection for customer registration via REST API
 
 ### Observer Architecture
 
-The module uses Magento 2 observers for all functionality:
+The module uses a combination of **Observers** and **API Plugins** to provide comprehensive protection:
 
-- **CheckoutRestrictionObserver**: Intercepts order placement with email and name validation
-- **CartRestrictionObserver**: Intercepts cart operations with email validation
-- **CustomerRegistrationObserver**: Intercepts customer registration with email and name validation
+#### Frontend Protection (Observers)
+- **`CheckoutRestrictionObserver`**: Intercepts `sales_order_place_before` event to block order creation
+- **`CartRestrictionObserver`**: Intercepts `checkout_cart_product_add_after` event to block cart additions
+- **`CustomerRegistrationObserver`**: Intercepts `customer_register_success` event to block registration
+
+#### API Protection (Plugins)
+- **`GuestCheckoutApiPlugin`**: Intercepts guest checkout API calls (`/rest/V1/guest-carts/{cartId}/payment-information`)
+- **`RegisteredCheckoutApiPlugin`**: Intercepts registered customer checkout API calls (`/rest/V1/carts/{cartId}/payment-information`)
+- **`CustomerRegistrationApiPlugin`**: Intercepts customer registration API calls (`/rest/V1/customers`)
+
+This dual approach ensures protection regardless of whether orders are placed through the frontend or via API calls.
 
 ## Troubleshooting
 

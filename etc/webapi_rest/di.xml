@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Marvelic. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- API Protection for Guest Checkout -->
+    <type name="Magento\Checkout\Api\GuestPaymentInformationManagementInterface">
+        <plugin name="marvelic_api_guest_checkout_protection" type="Marvelic\MveRestrictCheckout\Plugin\Api\GuestCheckoutApiPlugin" sortOrder="10"/>
+    </type>
+    
+    <!-- API Protection for Registered Customer Checkout -->
+    <type name="Magento\Checkout\Api\PaymentInformationManagementInterface">
+        <plugin name="marvelic_api_registered_checkout_protection" type="Marvelic\MveRestrictCheckout\Plugin\Api\RegisteredCheckoutApiPlugin" sortOrder="10"/>
+    </type>
+    
+    <!-- API Protection for Customer Registration -->
+    <type name="Magento\Customer\Api\AccountManagementInterface">
+        <plugin name="marvelic_api_customer_registration_protection" type="Marvelic\MveRestrictCheckout\Plugin\Api\CustomerRegistrationApiPlugin" sortOrder="10"/>
+    </type>
+</config>

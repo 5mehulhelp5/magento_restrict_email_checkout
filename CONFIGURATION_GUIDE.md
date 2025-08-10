@@ -177,3 +177,14 @@ temporary
 For additional help:
 - Email: info@marvelic.com
 - Check the main README.md for detailed documentation
+
+## Overview
+
+The Marvelic MveRestrictCheckout module provides comprehensive protection against unwanted customer registrations and checkout attempts. It works through both **frontend protection** (using Magento observers) and **API protection** (using Magento plugins) to ensure restrictions are enforced regardless of how customers interact with your store.
+
+### Protection Coverage
+
+- **Frontend Protection**: Blocks restricted users during normal website checkout and registration
+- **API Protection**: Blocks restricted users when they attempt to create orders or register via Magento REST API calls
+- **Cart Protection**: Prevents restricted users from adding products to cart
+- **Configuration Management**: Centralized admin panel for all restriction settings
