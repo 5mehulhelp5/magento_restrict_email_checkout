@@ -69,39 +69,32 @@
                 </field>
             </group>
             
-
-            
             <group id="messages" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Error Messages</label>
                 
                 <field id="guest_checkout_message" translate="label" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Guest Checkout Error Message</label>
                     <comment>Message shown when guest checkout is blocked</comment>
-                    <default>Guest checkout is not allowed for this email address or customer name.</default>
                 </field>
                 
                 <field id="registered_checkout_message" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Registered Checkout Error Message</label>
                     <comment>Message shown when registered customer checkout is blocked</comment>
-                    <default>Checkout is not allowed for this email address or customer name.</default>
                 </field>
                 
                 <field id="customer_registration_message" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Customer Registration Error Message</label>
                     <comment>Message shown when customer registration is blocked</comment>
-                    <default>Customer registration is not allowed for this email address or customer name.</default>
                 </field>
                 
                 <field id="internal_email_restricted_message" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Internal Email Restricted Message</label>
                     <comment>Internal message for email restriction validation</comment>
-                    <default>Email address is restricted</default>
                 </field>
                 
                 <field id="internal_name_restricted_message" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Internal Name Restricted Message</label>
                     <comment>Internal message for name restriction validation</comment>
-                    <default>Customer name is restricted</default>
                 </field>
             </group>
         </section>
