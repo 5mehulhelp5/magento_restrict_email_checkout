@@ -37,6 +37,12 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment>Block customer registration for restricted emails</comment>
                 </field>
+                
+                <field id="enable_logging" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Logging</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable or disable logging to var/log/mve_restrict_checkout.log</comment>
+                </field>
             </group>
             
             <group id="restricted_emails" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -63,48 +69,39 @@
                 </field>
             </group>
             
-            <group id="address_restrictions" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Address Restriction Settings</label>
-                
-                <field id="check_delivery_address" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Check Delivery Address</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Apply restrictions to delivery address fields</comment>
-                </field>
-                
-                <field id="check_billing_address" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Check Billing Address</label>
-                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>Apply restrictions to billing address fields</comment>
-                </field>
-                
-                <field id="blocked_address_domains" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Blocked Address Email Domains</label>
-                    <comment>Enter email domains to block in address fields (one per line)</comment>
-                </field>
-                
-                <field id="blocked_address_emails" translate="label comment" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Blocked Address Email Addresses</label>
-                    <comment>Enter specific email addresses to block in address fields (one per line)</comment>
-                </field>
-            </group>
+
             
-            <group id="messages" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="messages" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Error Messages</label>
                 
-                <field id="guest_checkout_message" translate="label comment" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="guest_checkout_message" translate="label" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Guest Checkout Error Message</label>
-                    <comment>Error message shown when guest checkout is blocked</comment>
+                    <comment>Message shown when guest checkout is blocked</comment>
+                    <default>Guest checkout is not allowed for this email address or customer name.</default>
                 </field>
                 
-                <field id="registered_checkout_message" translate="label comment" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="registered_checkout_message" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Registered Checkout Error Message</label>
-                    <comment>Error message shown when registered customer checkout is blocked</comment>
+                    <comment>Message shown when registered customer checkout is blocked</comment>
+                    <default>Checkout is not allowed for this email address or customer name.</default>
                 </field>
                 
-                <field id="registration_message" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Registration Error Message</label>
-                    <comment>Customize the error message shown when registration is blocked</comment>
+                <field id="customer_registration_message" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Registration Error Message</label>
+                    <comment>Message shown when customer registration is blocked</comment>
+                    <default>Customer registration is not allowed for this email address or customer name.</default>
+                </field>
+                
+                <field id="internal_email_restricted_message" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Internal Email Restricted Message</label>
+                    <comment>Internal message for email restriction validation</comment>
+                    <default>Email address is restricted</default>
+                </field>
+                
+                <field id="internal_name_restricted_message" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Internal Name Restricted Message</label>
+                    <comment>Internal message for name restriction validation</comment>
+                    <default>Customer name is restricted</default>
                 </field>
             </group>
         </section>

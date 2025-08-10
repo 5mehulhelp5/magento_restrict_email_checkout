@@ -4,41 +4,53 @@
  * Copyright © Marvelic. All rights reserved.
  */
 -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/defaults.xsd">
     <default>
         <mve_restrict_checkout>
             <general>
-                <enabled>0</enabled>
+                <enabled>1</enabled>
                 <restrict_guest_checkout>1</restrict_guest_checkout>
                 <restrict_registered_checkout>1</restrict_registered_checkout>
                 <restrict_customer_registration>1</restrict_customer_registration>
+                <enable_logging>1</enable_logging>
             </general>
             <restricted_emails>
                 <blocked_domains>temp-mail.org
 10minutemail.com
-guerrillamail.com</blocked_domains>
+guerrillamail.com
+mailinator.com
+tempmail.com
+throwawaymail.com
+mailnesia.com
+sharklasers.com
+getairmail.com
+maildrop.cc</blocked_domains>
                 <blocked_emails>test@example.com
 fake@domain.com
-admin@test.com</blocked_emails>
+admin@test.com
+user@test.com</blocked_emails>
                 <blocked_first_names>test
 fake
 admin
-user</blocked_first_names>
+user
+demo
+temp
+temporary</blocked_first_names>
                 <blocked_last_names>test
 fake
 admin
-user</blocked_last_names>
+user
+demo
+temp
+temporary</blocked_last_names>
             </restricted_emails>
-            <address_restrictions>
-                <check_delivery_address>1</check_delivery_address>
-                <check_billing_address>1</check_billing_address>
-                <blocked_address_domains></blocked_address_domains>
-                <blocked_address_emails></blocked_address_emails>
-            </address_restrictions>
+
             <messages>
-                <guest_checkout_message>Sorry, guest checkout is not allowed for this email address. Please register an account or use a different email address.</guest_checkout_message>
-                <registered_checkout_message>Sorry, checkout is not allowed for this email address. Please contact customer support for assistance.</registered_checkout_message>
-                <registration_message>Sorry, registration is not allowed for this email address or name. Please use a valid email address and real name for registration.</registration_message>
+                <guest_checkout_message>Guest checkout is not allowed for this email address or customer name.</guest_checkout_message>
+                <registered_checkout_message>Checkout is not allowed for this email address or customer name.</registered_checkout_message>
+                <customer_registration_message>Customer registration is not allowed for this email address or customer name.</customer_registration_message>
+                <internal_email_restricted_message>Email address is restricted</internal_email_restricted_message>
+                <internal_name_restricted_message>Customer name is restricted</internal_name_restricted_message>
             </messages>
         </mve_restrict_checkout>
     </default>

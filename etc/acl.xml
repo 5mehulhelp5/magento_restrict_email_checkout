@@ -10,10 +10,9 @@
             <resource id="Magento_Backend::admin">
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
-                        <resource id="Magento_Config::config">
-                            <resource id="Marvelic_MveRestrictCheckout::config" title="Checkout Restriction Settings" sortOrder="100"/>
+                        <resource id="Marvelic_MveRestrictCheckout::marvelic" title="Marvelic" sortOrder="100">
+                            <resource id="Marvelic_MveRestrictCheckout::config" title="Checkout Restriction Configuration" sortOrder="10"/>
                         </resource>
-                    <resource id="Marvelic_MveRestrictCheckout::marvelic" title="Marvelic" sortOrder="200"/>
                     </resource>
                 </resource>
             </resource>

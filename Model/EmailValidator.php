@@ -33,10 +33,6 @@ class EmailValidator
      */
     public function isEmailRestricted(string $email, ?string $scopeCode = null): bool
     {
-        if (!$this->config->isEnabled($scopeCode)) {
-            return false;
-        }
-
         // Validate email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return false;
@@ -46,16 +42,76 @@ class EmailValidator
         
         // Check specific blocked emails
         $blockedEmails = $this->config->getBlockedEmails($scopeCode);
-        if (in_array($email, $blockedEmails)) {
+        if (!empty($blockedEmails) && in_array($email, $blockedEmails)) {
             return true;
         }
 
         // Check blocked domains
         $blockedDomains = $this->config->getBlockedDomains($scopeCode);
-        $emailDomain = $this->extractDomain($email);
-        
-        if (in_array($emailDomain, $blockedDomains)) {
-            return true;
+        if (!empty($blockedDomains)) {
+            $parts = explode('@', $email);
+            $emailDomain = count($parts) === 2 ? strtolower(trim($parts[1])) : '';
+            if (in_array($emailDomain, $blockedDomains)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if first name is restricted
+     *
+     * @param string $firstName
+     * @param string|null $scopeCode
+     * @return bool
+     */
+    public function isFirstNameRestricted(string $firstName, ?string $scopeCode = null): bool
+    {
+        // Validate input parameter
+        if (empty($firstName)) {
+            return false;
+        }
+
+        // Sanitize input
+        $firstName = strtolower(trim(strip_tags($firstName)));
+
+        // Check blocked first names
+        $blockedFirstNames = $this->config->getBlockedFirstNames($scopeCode);
+        if (!empty($blockedFirstNames)) {
+            $blockedFirstNames = array_map('strtolower', $blockedFirstNames);
+            if (in_array($firstName, $blockedFirstNames)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if last name is restricted
+     *
+     * @param string $lastName
+     * @param string|null $scopeCode
+     * @return bool
+     */
+    public function isLastNameRestricted(string $lastName, ?string $scopeCode = null): bool
+    {
+        // Validate input parameter
+        if (empty($lastName)) {
+            return false;
+        }
+
+        // Sanitize input
+        $lastName = strtolower(trim(strip_tags($lastName)));
+
+        // Check blocked last names
+        $blockedLastNames = $this->config->getBlockedLastNames($scopeCode);
+        if (!empty($blockedLastNames)) {
+            $blockedLastNames = array_map('strtolower', $blockedLastNames);
+            if (in_array($lastName, $blockedLastNames)) {
+                return true;
+            }
         }
 
         return false;
@@ -71,10 +127,6 @@ class EmailValidator
      */
     public function isNameRestricted(string $firstName, string $lastName, ?string $scopeCode = null): bool
     {
-        if (!$this->config->isEnabled($scopeCode)) {
-            return false;
-        }
-
         // Validate input parameters
         if (empty($firstName) || empty($lastName)) {
             return false;
@@ -85,68 +137,27 @@ class EmailValidator
         $lastName = strtolower(trim(strip_tags($lastName)));
 
         // Check blocked first names
-        $blockedFirstNames = array_map('strtolower', $this->config->getBlockedFirstNames($scopeCode));
-        if (in_array($firstName, $blockedFirstNames)) {
-            return true;
+        $blockedFirstNames = $this->config->getBlockedFirstNames($scopeCode);
+        if (!empty($blockedFirstNames)) {
+            $blockedFirstNames = array_map('strtolower', $blockedFirstNames);
+            if (in_array($firstName, $blockedFirstNames)) {
+                return true;
+            }
         }
 
         // Check blocked last names
-        $blockedLastNames = array_map('strtolower', $this->config->getBlockedLastNames($scopeCode));
-        if (in_array($lastName, $blockedLastNames)) {
-            return true;
+        $blockedLastNames = $this->config->getBlockedLastNames($scopeCode);
+        if (!empty($blockedLastNames)) {
+            $blockedLastNames = array_map('strtolower', $blockedLastNames);
+            if (in_array($lastName, $blockedLastNames)) {
+                return true;
+            }
         }
 
         return false;
     }
 
-    /**
-     * Check if address email is restricted
-     *
-     * @param string $email
-     * @param string|null $scopeCode
-     * @return bool
-     */
-    public function isAddressEmailRestricted(string $email, ?string $scopeCode = null): bool
-    {
-        if (!$this->config->isEnabled($scopeCode)) {
-            return false;
-        }
 
-        // Validate email format
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return false;
-        }
-
-        $email = strtolower(trim($email));
-        
-        // Check specific blocked address emails
-        $blockedAddressEmails = $this->config->getBlockedAddressEmails($scopeCode);
-        if (in_array($email, $blockedAddressEmails)) {
-            return true;
-        }
-
-        // Check blocked address domains
-        $blockedAddressDomains = $this->config->getBlockedAddressDomains($scopeCode);
-        $emailDomain = $this->extractDomain($email);
-        
-        if (in_array($emailDomain, $blockedAddressDomains)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Extract domain from email address
-     *
-     * @param string $email
-     * @return string
-     */
-    private function extractDomain(string $email): string
-    {
-        $parts = explode('@', $email);
-        return count($parts) === 2 ? strtolower(trim($parts[1])) : '';
-    }
 
     /**
      * Validate customer data for restrictions
@@ -162,11 +173,11 @@ class EmailValidator
         $errors = [];
 
         if ($this->isEmailRestricted($email, $scopeCode)) {
-            $errors[] = 'Email address is restricted';
+            $errors[] = $this->config->getInternalEmailRestrictedMessage($scopeCode);
         }
 
         if ($this->isNameRestricted($firstName, $lastName, $scopeCode)) {
-            $errors[] = 'Customer name is restricted';
+            $errors[] = $this->config->getInternalNameRestrictedMessage($scopeCode);
         }
 
         return $errors;

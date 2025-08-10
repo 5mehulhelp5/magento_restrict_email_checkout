@@ -52,6 +52,7 @@ Sorry, registration is not allowed for this email address or name. Please use a 
 - **Restrict Guest Checkout**: Block guest checkout for restricted data
 - **Restrict Registered Customer Checkout**: Block registered customer checkout
 - **Restrict Customer Registration**: Block customer registration
+- **Enable Logging**: Enable/disable logging to var/log/mve_restrict_checkout.log
 
 ### Restricted Email Settings
 - **Blocked Email Domains**: Add email domains to block (one per line)
@@ -63,16 +64,46 @@ Sorry, registration is not allowed for this email address or name. Please use a 
 - **Blocked Last Name Patterns**: Add patterns to block in last names (one per line)
   - Example: `test`, `fake`, `admin`, `user`
 
-### Address Restriction Settings
-- **Check Delivery Address**: Apply restrictions to delivery address fields
-- **Check Billing Address**: Apply restrictions to billing address fields
-- **Blocked Address Email Domains**: Domains to block in address fields
-- **Blocked Address Email Addresses**: Specific emails to block in address fields
+
 
 ### Error Messages
-- **Guest Checkout Error Message**: Message for blocked guest checkout
-- **Registered Checkout Error Message**: Message for blocked registered checkout
-- **Registration Error Message**: Customize the error message shown when registration is blocked
+
+This section allows you to customize all error messages displayed to customers and internal validation messages.
+
+#### Guest Checkout Error Message
+- **Field**: Guest Checkout Error Message
+- **Type**: Textarea
+- **Default**: "Guest checkout is not allowed for this email address or customer name."
+- **Description**: Message shown when guest checkout is blocked
+- **Usage**: Displayed to customers attempting guest checkout with restricted information
+
+#### Registered Checkout Error Message
+- **Field**: Registered Checkout Error Message
+- **Type**: Textarea
+- **Default**: "Checkout is not allowed for this email address or customer name."
+- **Description**: Message shown when registered customer checkout is blocked
+- **Usage**: Displayed to registered customers attempting checkout with restricted information
+
+#### Customer Registration Error Message
+- **Field**: Customer Registration Error Message
+- **Type**: Textarea
+- **Default**: "Customer registration is not allowed for this email address or customer name."
+- **Description**: Message shown when customer registration is blocked
+- **Usage**: Displayed to customers attempting to register with restricted information
+
+#### Internal Email Restricted Message
+- **Field**: Internal Email Restricted Message
+- **Type**: Textarea
+- **Default**: "Email address is restricted"
+- **Description**: Internal validation message for email restrictions
+- **Usage**: Used internally by the module's validation logic
+
+#### Internal Name Restricted Message
+- **Field**: Internal Name Restricted Message
+- **Type**: Textarea
+- **Default**: "Customer name is restricted"
+- **Description**: Internal validation message for name restrictions
+- **Usage**: Used internally by the module's validation logic
 
 ## Adding More Blocked Items
 
@@ -144,5 +175,5 @@ temporary
 ## Support
 
 For additional help:
-- Email: support@marvelic.com
+- Email: info@marvelic.com
 - Check the main README.md for detailed documentation
