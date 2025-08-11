@@ -6,7 +6,7 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/system_file.xsd">
     <system>
-        <tab id="marvelic" translate="label" sortOrder="200">
+        <tab id="marvelic" translate="label" type="text" sortOrder="200">
             <label>Marvelic</label>
         </tab>
     </system>
